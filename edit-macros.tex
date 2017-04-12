@@ -1,90 +1,74 @@
-%!TEX root = parser-compiler.tex
+\usepackage{paralist} %For inpar enum
+
+%=============================================================================
 
 % ============================================================
 % Markup macros for proof-reading
 \usepackage{ifthen}
 \usepackage[normalem]{ulem} % for \sout
-\usepackage{amssymb}
-
-\newboolean{showcomments}
+\newcommand{\ra}{$\rightarrow$}
 \newboolean{showedits}
-
- \setboolean{showcomments}{false}
+%:TOGGLE EDITS
  \setboolean{showedits}{false}
-
-%:TOGGLE COMMENTS AND EDITS
- \setboolean{showcomments}{true}
  \setboolean{showedits}{true} 
-
-
 \ifthenelse{\boolean{showedits}}
 {
-  \newcommand{\num}[1]{\nbc{Check}{#1}{ta3plum}} % check the number! 
   \newcommand{\meh}[1]{\textcolor{red}{\uwave{#1}}} % please rephrase
   \newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}} % please rephrase
-  \newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
-  \newcommand{\del}[1]{\textcolor{red}{\sout{#1}}} % please delete
-  \newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{$\rightarrow$}\textcolor{blue}{\uline{#2}}} % please change
-  \newcommand{\nbe}[3]{
-    {\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
-    {\textcolor{#3}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}
+	\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
+	\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}} % please delete
+	\newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
+	\newcommand{\nbe}[3]{
+		{\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
+		{\textcolor{#3}{\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}
 }{
-  \newcommand{\num}[1]{#1} % check the number 
-  \newcommand{\meh}[1]{#1} % please rephrase
-  \newcommand{\ins}[1]{#1} % please insert
-  \newcommand{\del}[1]{} % please delete
-  \newcommand{\chg}[2]{#2}
-  \newcommand{\nbe}[3]{}
+	\newcommand{\meh}[1]{#1} % please rephrase
+	\newcommand{\ins}[1]{#1} % please insert
+	\newcommand{\del}[1]{} % please delete
+	\newcommand{\chg}[2]{#2}
+	\newcommand{\nbe}[3]{}
 }
-
+\newcommand\rA[1]{\nbe{Reviewer A}{#1}{cyan}}
+\newcommand\rB[1]{\nbe{Reviewer B}{#1}{olive}}
+\newcommand\rC[1]{\nbe{Reviewer C}{#1}{magenta}}
+\newcommand\ANS[1]{\nbe{Response}{#1}{teal}}
 % ============================================================
 % Put edit comments in a really ugly standout display
+%\usepackage{ifthen}
 \usepackage{amssymb}
-
+\newboolean{showcomments}
+%:TOGGLE COMMENTS
+ \setboolean{showcomments}{false}
+ \setboolean{showcomments}{true}
+\newcommand{\yellowbox}[1]{\fcolorbox{gray}{yellow}{\bfseries\sffamily\scriptsize#1}}
+\newcommand{\triangles}[1]{{\small$\blacktriangleright$\textit{#1}$\blacktriangleleft$}}
 \ifthenelse{\boolean{showcomments}}
 {\newcommand{\nbc}[3]{
  {\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
- {\textcolor{#3}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}
+ {\textcolor{#3}{\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}
  \newcommand{\version}{\emph{\scriptsize\id}}}
 {\newcommand{\nbc}[3]{}
  \newcommand{\version}{}}
+\newcommand{\nb}[2]{\nbc{#1}{#2}{orange}}
+\newcommand{\onhere}{\yellowbox{$\Rightarrow$ ON CONTINUE HERE $\Leftarrow$}}
+\newcommand\rev[2]{\nb{TODO (rev #1)}{#2}} % reviewer comments
+\newcommand\fix[1]{\nb{FIX}{#1}}
+\newcommand\todo[1]{\nb{TO DO}{#1}}
+\newcommand\ml[1]{\nbc{ML}{#1}{violet}} 
+\newcommand\tvds[1]{\nbc{tvds}{#1}{green}}
 
-\newcommand{\nb}[2]{\nbc{#1}{#2}{ta3orange}}
-\newcommand{\here}{\yellowbox{$\Rightarrow$ CONTINUE HERE $\Leftarrow$}}
-\newcommand\fix[1]{\nbc{FIX}{#1}{ta3plum}}
-\newcommand\todo[1]{\nb{TODO}{#1}}
-\newcommand\on[1]{\nbc{ON}{#1}{ta3chameleon}} % add more author macros here
-\newcommand\bs[1]{\nbc{BS}{#1}{ta3butter}} % add more author macros here
-\newcommand\ml[1]{\nbc{ML}{#1}{ta2chameleon}} % add more author macros here
-\newcommand\jk[1]{\nbc{JK}{#1}{ta2skyblue}}
-\newcommand\rev[1]{\nbc{rev}{#1}{ta2chocolate}}
-\newcommand\ANS[1]{\nbc{rev}{#1}{ta3skyblue}}
-\newcommand\info[1]{\nbc{META INFO}{#1}{ta3aluminium}}
-\newcommand\maybe[1]{\nbc{?}{#1}{ta2aluminium}}
-\newcommand\definitely[1]{\nbc{\checkmark}{#1}{ta2gray}}
+% add more author macros here
 
-%\newcommand\ho[1]{\nbc{HO}{#1}{brown}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{magenta}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{olive}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{orange}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{purple}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{red}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{teal}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{violet}}
+
+
 % ============================================================
-% \newcommand{\bs}{\symbol{'134}} % backslash
+\newcommand{\bs}{\symbol{'134}} % backslash
 \newcommand{\us}{\symbol{'137}} % underscore
 \newcommand{\ie}{\emph{i.e.},\xspace}
 \newcommand{\eg}{\emph{e.g.},\xspace}
 \newcommand{\etal}{\emph{et al.}\xspace}
 \newcommand{\etc}{\emph{etc.}\xspace}
 \newcommand{\adhoc}{\emph{ad hoc}\xspace}
-
-% ============================================================
-\newcommand\isa{\emph{a?}\xspace}
-
-
-
 % ============================================================
 % Box comments/edits
 \usepackage[most]{tcolorbox}
@@ -93,7 +77,7 @@
 {
   \newtcolorbox{inserted}{%
        title=Inserted text:,
-       colframe=ta3skyblue,colback=taskyblue!20,
+       colframe=blue,colback=blue!5!white,
        breakable,
        leftrule=0mm, bottomrule=0mm,
        rightrule=0mm,
@@ -103,7 +87,7 @@
   }
   \newtcolorbox{deleted}{%
        title=Deleted text:,
-       colframe=ta3scarletred,colback=taorange,
+       colframe=red,colback=red!5!white,
        breakable,
        leftrule=0mm, 
        bottomrule=0mm,
@@ -115,7 +99,7 @@
   \newtcolorbox{refactored}{%
        % title=Heavily modifed/refactored text:,
        title=Rewritten text:,
-       colframe=ta3skyblue,colback=taorange!20,
+       colframe=blue,colback=red!5!white,
        breakable,
        leftrule=0mm, 
        bottomrule=0mm,
@@ -124,21 +108,10 @@
        arc=0mm, outer arc=0mm,
        oversize
   }
-  \newtcolorbox{continuerefactored}{%
-       title=,
-       colframe=ta3skyblue,colback=taorange!20,
-       breakable,
-       leftrule=0mm, 
-       bottomrule=0mm,
-       rightrule=0mm,
-       toprule=0mm,
-       arc=0mm, outer arc=0mm,
-       oversize
-  }
-  \newtcolorbox{meta}[1]{%
+  \newtcolorbox{meta}{%
        % title=Heavily modifed/refactored text:,
-       title=Meta Information:#1,
-       colframe=ta3gray,colback=taaluminium,
+       title=Meta Information,
+       colframe=gray,colback=gray!5!white,
        breakable,
        leftrule=0mm, 
        bottomrule=0mm,
@@ -150,7 +123,19 @@
   \newtcolorbox{draft}{%
        % title=Heavily modifed/refactored text:,
        title=Too Drafty (...I warned you),
-       colframe=ta3gray,colback=tabutter!20,
+       colframe=Black,colback= yellow!5!white,
+       breakable,
+       leftrule=0mm, 
+       bottomrule=0mm,
+       rightrule=0mm,
+       toprule=0mm,
+       arc=0mm, outer arc=0mm,
+       oversize
+  }
+  \newtcolorbox{todobox}{%
+       % title=Heavily modifed/refactored text:,
+       title=This is shit:,
+       colframe=Black,colback= yellow!5!white,
        breakable,
        leftrule=0mm, 
        bottomrule=0mm,
@@ -164,7 +149,7 @@
   %\newenvironment{deleted}{ \begin{comment} }{ \end{comment} }
   \let\deleted\comment
   \newenvironment{refactored}{}{} 
-  \newenvironment{continuerefactored}{}{} 
   \let\meta\comment
-  \let\draft\comment
+  \newenvironment{draft}{}{}
+  \newenvironment{todobox}{}{}
 }
