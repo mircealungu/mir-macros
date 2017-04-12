@@ -15,18 +15,18 @@
 {
   \newcommand{\meh}[1]{\textcolor{red}{\uwave{#1}}} % please rephrase
   \newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}} % please rephrase
-	\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
-	\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}} % please delete
-	\newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
-	\newcommand{\nbe}[3]{
-		{\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
-		{\textcolor{#3}{\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}
+  \newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
+  \newcommand{\del}[1]{\textcolor{red}{\sout{#1}}} % please delete
+  \newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
+  \newcommand{\nbe}[3]{
+    {\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
+    {\textcolor{#3}{\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}
 }{
-	\newcommand{\meh}[1]{#1} % please rephrase
-	\newcommand{\ins}[1]{#1} % please insert
-	\newcommand{\del}[1]{} % please delete
-	\newcommand{\chg}[2]{#2}
-	\newcommand{\nbe}[3]{}
+  \newcommand{\meh}[1]{#1} % please rephrase
+  \newcommand{\ins}[1]{#1} % please insert
+  \newcommand{\del}[1]{} % please delete
+  \newcommand{\chg}[2]{#2}
+  \newcommand{\nbe}[3]{}
 }
 \newcommand\rA[1]{\nbe{Reviewer A}{#1}{cyan}}
 \newcommand\rB[1]{\nbe{Reviewer B}{#1}{olive}}
